@@ -78,6 +78,7 @@ export default function ContactFormRedesign() {
     <section
       className="min-h-screen flex items-center justify-center bg-fixed bg-center bg-cover py-16 relative"
       style={{ backgroundImage: `url('/hero-canada.jpg')` }}
+      id="contact"
     >
       {/* translucent overlay */}
       <div className="absolute inset-0 bg-white/60" />

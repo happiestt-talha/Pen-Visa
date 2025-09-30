@@ -215,14 +215,14 @@ export function HeroSection() {
                 size="lg"
                 className="bg-emerald-700 hover:bg-emerald-800 text-white px-8 py-3 transform-gpu hover:-translate-y-0.5 transition focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2"
                 onClick={() => {
-                  const el = document.getElementById("contact-form")
+                  const el = document.getElementById("contact")
                   if (el) el.scrollIntoView({ behavior: "smooth" })
                 }}
               >
                 Start Your Application
               </Button>
 
-              <Button
+              {/* <Button
                 size="lg"
                 variant="outline"
                 className="px-8 py-3 text-emerald-800 border-emerald-200 hover:bg-emerald-50 hover:text-emerald-700 focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2"
@@ -232,7 +232,7 @@ export function HeroSection() {
                 }}
               >
                 Free Eligibility Check
-              </Button>
+              </Button> */}
             </div>
 
             {/* trust badges */}

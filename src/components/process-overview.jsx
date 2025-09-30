@@ -37,7 +37,7 @@ export default function ProcessOverview() {
       }}
     >
       {/* subtle overlay so text is readable on any background */}
-      <div className="absolute inset-0 bg-white/85 dark:bg-black/40 pointer-events-none" />
+      <div className="absolute inset-0 bg-white/50 dark:bg-black/40 pointer-events-none" />
 
       <div className="relative z-10 container mx-auto px-6 py-20 lg:py-28">
         {/* small header icon + label */}
@@ -97,7 +97,7 @@ export default function ProcessOverview() {
 
       {/* floating WhatsApp contact button bottom-left */}
       <a
-        href="https://wa.me/92300XXXXXXX"
+        href="https://wa.me/923218815888"
         target="_blank"
         rel="noopener noreferrer"
         className="fixed left-6 bottom-6 z-50 flex items-center gap-3 bg-white rounded-full shadow-lg px-4 py-2 hover:scale-105 transition-transform"
