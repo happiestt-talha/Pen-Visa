@@ -177,3 +177,10 @@
   background-repeat: no-repeat;
   background-size: cover;
 }
+
+/* e.g. globals.css */
+[data-placeholder="true"] {
+  color: rgba(255, 255, 255, 0.8) !important;
+}
+
+.select-value[data-placeholder="true"] { color: rgba(255,255,255,0.8); }

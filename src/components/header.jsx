@@ -61,7 +61,7 @@ export function Header() {
             <Button variant="outline" className="hidden md:inline-flex bg-transparent">
               Free Assessment
             </Button>
-            <Button className="bg-primary text-primary-foreground hover:bg-primary/90">Apply Now</Button>
+            {/* <Button className="bg-primary text-primary-foreground hover:bg-primary/90">Apply Now</Button> */}
 
             {/* Mobile menu button */}
             <button className="md:hidden" onClick={() => setIsMenuOpen(!isMenuOpen)}>

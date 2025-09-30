@@ -4,7 +4,7 @@ import { CountrySelector } from "@/components/country-selector"
 import { ServicesOverview } from "@/components/services-overview"
 import ProcessOverview from "@/components/process-overview"
 import { Testimonials } from "@/components/testimonials"
-import { ApplicationForm } from "@/components/application-form"
+import  ApplicationForm  from "@/components/application-form"
 import { Footer } from "@/components/footer"
 
 export default function HomePage() {

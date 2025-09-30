@@ -1,20 +1,7 @@
 "use client"
 
-import React, { useMemo } from "react"
+import React from "react"
 import { Phone, CheckCircle } from "lucide-react"
-
-/**
- * Props:
- *  - whatsappNumber: string (digits only or formatted; sanitised internally)
- *  - message: optional pre-filled message for WhatsApp chat
- *  - fallbackTel: boolean - if true and WhatsApp number invalid, show tel: fallback
- *  - className: extra classes for container wrapper if needed
- *
- * Behavior:
- *  - Sanitises once via useMemo.
- *  - Shows compact icon-only button on small screens; on md+ the label is visible and nicely animated.
- *  - Accessible (focus styles, aria-label) and motion-safe.
- */
 
 const steps = [
   {
@@ -37,51 +24,23 @@ const steps = [
   },
 ]
 
-/** sanitize phone to digits-only and basic length check */
-function sanitizeE164(number) {
-  if (!number) return null
-  const digits = String(number).replace(/\D/g, "")
-  if (digits.length >= 9 && digits.length <= 15) return digits
-  return null
-}
-
-function buildWhatsAppUrl(numberDigits, message) {
-  const base = `https://wa.me/${numberDigits}`
-  if (!message) return base
-  return `${base}?text=${encodeURIComponent(message)}`
-}
-
-export default function ProcessOverview({
-  whatsappNumber = "923218815888",
-  message = "Hello! I would like an assessment for study abroad options.",
-  fallbackTel = true,
-  className = "",
-}) {
-  // compute once
-  const { numberDigits, waUrl, telUrl } = useMemo(() => {
-    const digits = sanitizeE164(whatsappNumber)
-    const wa = digits ? buildWhatsAppUrl(digits, message) : null
-    const tel = digits ? `tel:+${digits}` : null
-    return { numberDigits: digits, waUrl: wa, telUrl: tel }
-  }, [whatsappNumber, message])
-
-  const contactHref = waUrl || (fallbackTel ? telUrl : null)
-  const isWhatsApp = !!waUrl
-
+export default function ProcessOverview() {
   return (
     <section
       aria-label="Process Overview"
-      className={`relative overflow-hidden ${className}`}
+      className="relative overflow-hidden"
       style={{
+        // background image stored at /public/process-bg.webp
         backgroundImage: "url('/process-bg.png')",
         backgroundSize: "cover",
         backgroundPosition: "center",
       }}
     >
-      {/* overlay */}
+      {/* subtle overlay so text is readable on any background */}
       <div className="absolute inset-0 bg-white/85 dark:bg-black/40 pointer-events-none" />
 
       <div className="relative z-10 container mx-auto px-6 py-20 lg:py-28">
+        {/* small header icon + label */}
         <div className="text-center mb-6">
           <div className="inline-flex items-center gap-2 text-sm font-medium text-secondary">
             <span className="p-2 rounded-md bg-white shadow-sm">
@@ -91,7 +50,9 @@ export default function ProcessOverview({
           </div>
         </div>
 
+        {/* large title */}
         <div className="text-center max-w-4xl mx-auto mb-12">
+          {/* <h1 className="font-extrabold text-3xl sm:text-4xl md:text-5xl lg:text-6xl leading-tight text-[#0b6b4f]"> */}
           <h1 className="font-extrabold text-3xl sm:text-4xl md:text-5xl lg:text-6xl leading-tight text-secondary">
             Unforgettable Getaways
             <br />
@@ -99,12 +60,19 @@ export default function ProcessOverview({
           </h1>
         </div>
 
+        {/* cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {steps.map((s) => (
+          {steps.map((s, idx) => (
             <article
               key={s.number}
               className="relative bg-white rounded-2xl shadow-xl p-8 md:p-10 min-h-[240px] flex flex-col justify-start"
             >
+              {/* small green dot accent (like the design) */}
+              {/* {idx === 0 && (
+                <span className="absolute -top-4 left-1/2 transform -translate-x-1/2 w-3 h-3 rounded-full bg-lime-500 shadow-md" />
+              )} */}
+
+              {/* large outlined number like design (transparent fill, stroked outline) */}
               <div
                 aria-hidden
                 className="absolute -top-6 left-6 select-none pointer-events-none"
@@ -120,63 +88,63 @@ export default function ProcessOverview({
               </div>
 
               <h3 className="text-lg font-semibold text-secondary mt-6">{s.title}</h3>
+
               <p className="mt-4 text-sm text-slate-600 flex-1">{s.description}</p>
             </article>
           ))}
         </div>
       </div>
 
-      {/* Improved floating contact */}
-      {contactHref && (
-        <a
-          href={contactHref}
-          target={isWhatsApp ? "_blank" : "_self"}
-          rel={isWhatsApp ? "noopener noreferrer" : undefined}
-          aria-label={
-            isWhatsApp
-              ? `Contact on WhatsApp: +${sanitizeE164(whatsappNumber)}`
-              : telUrl
-              ? `Call: +${sanitizeE164(whatsappNumber)}`
-              : "Contact"
-          }
-          // wrapper: group used for hover/focus interactions
-          className="group fixed left-6 bottom-6 z-50 flex items-center gap-3 rounded-full px-3 py-2
-                     bg-white/70 backdrop-blur-md shadow-2xl dark:bg-black/60
-                     hover:scale-105 transform-gpu transition-transform motion-safe:duration-200
-                     focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-green-300"
-        >
-          {/* icon circle */}
-          <span
-            className="flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center shadow-sm
-                       bg-gradient-to-br from-green-400 to-green-600 text-white"
-            aria-hidden
-          >
-            {/* keep Phone for clarity — swap for official WhatsApp SVG if desired */}
-            <Phone className="w-5 h-5" />
-          </span>
+      {/* floating WhatsApp contact button bottom-left */}
+      <a
+        href="https://wa.me/92300XXXXXXX"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="fixed left-6 bottom-6 z-50 flex items-center gap-3 bg-white rounded-full shadow-lg px-4 py-2 hover:scale-105 transition-transform"
+        aria-label="Contact for Assessment on WhatsApp"
+      >
+        <span className="w-10 h-10 rounded-full bg-secondary flex items-center justify-center text-white shadow-sm">
+          <Phone className="w-5 h-5" />
+        </span>
+        <span className="text-sm font-medium text-slate-700">Contact For Assessment</span>
+      </a>
 
-          {/* label: visible on md+ screens; on small screens expands on hover */}
-          <span
-            className="hidden md:inline-block text-sm font-medium text-slate-800 dark:text-slate-100
-                       opacity-100 transform transition-all motion-safe:duration-200"
+      {/* circular progress bottom-right */}
+      {/* <div className="fixed right-6 bottom-6 z-40">
+        <svg width="72" height="72" viewBox="0 0 36 36" className="block">
+          <defs />
+          <circle
+            cx="18"
+            cy="18"
+            r="15.9155"
+            fill="none"
+            stroke="#e6f6ef"
+            strokeWidth="2.5"
+          />
+          <circle
+            cx="18"
+            cy="18"
+            r="15.9155"
+            fill="none"
+            stroke="secondary"
+            strokeWidth="2.5"
+            strokeDasharray="77 100"
+            strokeLinecap="round"
+            transform="rotate(-90 18 18)"
+          />
+          <text
+            x="50%"
+            y="50%"
+            dominantBaseline="middle"
+            textAnchor="middle"
+            fontSize="7"
+            fill="secondary"
+            fontWeight="700"
           >
-            Contact For Assessment
-          </span>
-
-          {/* small-screen animated label (appears on hover/focus) */}
-          <span
-            className="md:hidden block text-sm font-medium text-slate-800 dark:text-slate-100
-                       overflow-hidden whitespace-nowrap max-w-0 group-hover:max-w-[12rem] group-focus:max-w-[12rem]
-                       opacity-0 group-hover:opacity-100 group-focus:opacity-100
-                       transition-all motion-safe:duration-250 ease-out"
-          >
-            Contact For Assessment
-          </span>
-
-          {/* accessibility: announce number for screen readers */}
-          <span className="sr-only">WhatsApp number: +{sanitizeE164(whatsappNumber)}</span>
-        </a>
-      )}
+            77%
+          </text>
+        </svg>
+      </div>  */}
     </section>
   )
 }

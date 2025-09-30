@@ -215,7 +215,7 @@ export function Testimonials() {
       </div>
 
       {/* WhatsApp floating button (bottom-left) */}
-      {/* <a
+      <a
         href="https://wa.me/92300XXXXXXX"
         target="_blank"
         rel="noopener noreferrer"
@@ -226,7 +226,7 @@ export function Testimonials() {
           <Phone className="w-6 h-6" />
         </span>
         <span className="text-sm font-medium text-slate-700">Contact For Assessment</span>
-      </a> */}
+      </a>
 
       {/* Circular progress bottom-right */}
       {/* <div className="fixed right-6 bottom-6 z-40">
